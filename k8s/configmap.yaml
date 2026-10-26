@@ -1,0 +1,11 @@
+# Non-secret configuration. In production DATABASE_URL (it has a password) comes from a Secret:
+#   kubectl create secret generic loanlab-secrets --from-literal=DATABASE_URL=postgresql+psycopg://...
+# and the Deployment adds:  envFrom: - secretRef: { name: loanlab-secrets }
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: loanlab-config
+data:
+  LOG_LEVEL: INFO
+  RESET_DATABASE: "1"
+  DATABASE_URL: sqlite:////tmp/loanlab.sqlite3   # one database PER POD: fine for the lab only

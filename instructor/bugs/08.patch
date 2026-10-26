@@ -1,0 +1,17 @@
+diff --git a/loanlab/api/routes.py b/loanlab/api/routes.py
+index 91794db..cc10ca4 100644
+--- a/loanlab/api/routes.py
++++ b/loanlab/api/routes.py
+@@ -81,7 +81,11 @@ def list_loans():
+     page = query_int("page", 1, 100_000)
+     size = query_int("size", 20, MAX_PAGE_SIZE)
+     loans, total = service().list_loans(request.args.get("status"), page, size)
+-    return {"items": [loan_json(loan) for loan in loans], "page": page, "size": size, "total": total}
++    items = []
++    for loan in loans:
++        db().refresh(loan)  # always show the latest balance
++        items.append(loan_json(loan))
++    return {"items": items, "page": page, "size": size, "total": total}
+ 
+ 
+ @api.get("/loans/<int:loan_id>")

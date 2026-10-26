@@ -1,0 +1,66 @@
+# The same pipeline in GitLab CI, for study (lesson 09). Not used by GitHub.
+# Copy to .gitlab-ci.yml in a GitLab project.
+
+stages: [lint, test, perf, build]
+
+default:
+  image: python:3.12-slim
+  cache:
+    key: pip
+    paths: [.cache/pip]
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+lint:
+  stage: lint
+  script:
+    - pip install -r requirements-dev.txt
+    - ruff check .
+    - ruff format --check .
+    - mypy
+
+test:
+  stage: test
+  script:
+    - pip install -r requirements-dev.txt
+    - pytest --cov=loanlab --cov-report=term-missing --cov-report=xml --junitxml=junit.xml
+    - cd django_lab && python manage.py test lending
+  coverage: '/TOTAL.*\s+(\d+%)$/'
+  artifacts:
+    when: always
+    reports:
+      junit: junit.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+
+perf-smoke:
+  stage: perf
+  image: grafana/k6:latest
+  services:
+    - name: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+      alias: api
+  variables:
+    API_URL: http://api:5080
+  script:
+    - k6 run -e API_URL=$API_URL perf/smoke.js
+  needs: [build]
+
+build:
+  stage: build
+  image: docker:27
+  services: [docker:27-dind]
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+    - docker build -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+  needs: [test]
+
+nightly-katas:
+  stage: test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+  script:
+    - pip install -r requirements-dev.txt
+    - pytest -m kata

@@ -1,0 +1,58 @@
+### PyCharm / VS Code REST Client: click the run arrow next to a request.
+@api = http://localhost:5080
+@key = lab-dev-key
+
+### Health
+GET {{api}}/api/health
+
+### Loan products
+GET {{api}}/api/products
+
+### Quote a loan (nothing is saved)
+POST {{api}}/api/loans/quote
+Content-Type: application/json
+
+{ "productCode": "PERS", "amount": 10000, "months": 12 }
+
+### All loans (paged)
+GET {{api}}/api/loans?status=active&page=1&size=20
+
+### One loan
+GET {{api}}/api/loans/1
+
+### Its repayment schedule
+GET {{api}}/api/loans/1/schedule
+
+### Its event history
+GET {{api}}/api/loans/1/events
+
+### Open a loan (needs the API key)
+POST {{api}}/api/loans
+Content-Type: application/json
+X-Api-Key: {{key}}
+
+{ "customerName": "Ana Pop", "productCode": "PERS", "amount": 10000, "months": 12 }
+
+### Repay (needs the API key and an Idempotency-Key). Send it twice: 201, then 200.
+POST {{api}}/api/loans/1/repayments
+Content-Type: application/json
+X-Api-Key: {{key}}
+Idempotency-Key: try-it-1
+
+{ "amount": 500 }
+
+### Open without the key: expect 401
+POST {{api}}/api/loans
+Content-Type: application/json
+
+{ "customerName": "No Key", "productCode": "PERS", "amount": 10000, "months": 12 }
+
+### Amount above the product maximum: expect 400
+POST {{api}}/api/loans
+Content-Type: application/json
+X-Api-Key: {{key}}
+
+{ "customerName": "Too High", "productCode": "PERS", "amount": 50000.01, "months": 12 }
+
+### Portfolio statistics (slow with many loans: lesson 07)
+GET {{api}}/api/stats/portfolio

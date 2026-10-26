@@ -1,0 +1,30 @@
+[project]
+name = "loanlab"
+version = "1.0.0"
+description = "Loan lab: a small lending API for learning Python backend development"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra -m 'not kata'"
+markers = [
+    "kata: interview algorithm exercises. Run with: pytest -m kata",
+    "mongo: needs mongomock or a MongoDB server",
+]
+filterwarnings = [
+    # SQLite stores NUMERIC as a float; SQLAlchemy converts it back to Decimal and warns.
+    "ignore:Dialect sqlite\\+pysqlite does \\*not\\* support Decimal objects natively",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+packages = ["loanlab"]
+ignore_missing_imports = true

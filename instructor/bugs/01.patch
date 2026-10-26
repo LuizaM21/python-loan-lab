@@ -1,0 +1,13 @@
+diff --git a/loanlab/services.py b/loanlab/services.py
+index d8e24f6..bc0cbe1 100644
+--- a/loanlab/services.py
++++ b/loanlab/services.py
+@@ -143,7 +143,7 @@ class LoanService:
+             raise ValidationError("Unknown loan product.")
+         if not has_at_most_two_decimals(amount):
+             raise ValidationError("Amount must have at most 2 decimals.")
+-        if amount < product.min_amount or amount > product.max_amount:
++        if amount < product.min_amount or amount >= product.max_amount:
+             raise ValidationError(
+                 f"Amount must be between {product.min_amount} and {product.max_amount} RON for {product.name}."
+             )

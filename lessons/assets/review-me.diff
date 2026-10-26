@@ -1,0 +1,65 @@
+PR #42  feat: early payoff quote
+Author: a new colleague
+Description: "Adds GET /api/loans/<reference>/payoff so customers can see how much they need to pay
+to close the loan today. Includes a 1% early-payoff fee. Tested manually with Postman, works fine."
+
+diff --git a/loanlab/api/routes.py b/loanlab/api/routes.py
+--- a/loanlab/api/routes.py
++++ b/loanlab/api/routes.py
+@@ -1,6 +1,8 @@
+ """HTTP endpoints. Thin: read the request, call the service, write the response."""
+ from __future__ import annotations
+
++import logging
++
+ from flask import Blueprint, current_app, g, jsonify, request, url_for
+ from sqlalchemy import text
+ from sqlalchemy.orm import Session
+@@ -117,3 +119,21 @@ def repay(loan_id: int):
+ @api.get("/stats/portfolio")
+ def stats():
+     return portfolio_stats(db())
++
++
++log = logging.getLogger(__name__)
++
++
++@api.get("/loans/<reference>/payoff")
++def payoff(reference):
++    row = db().execute(text(f"SELECT id FROM loans WHERE reference = '{reference}'")).first()
++    loan = service().get_loan(row.id)
++    log.info(f"payoff requested for {loan.customer_name} with request {request.args}")
++    try:
++        amount = service().payoff_amount(loan.id)
++    except:
++        amount = 0
++    return {"reference": reference, "payoff": amount}
+diff --git a/loanlab/services.py b/loanlab/services.py
+--- a/loanlab/services.py
++++ b/loanlab/services.py
+@@ -1,6 +1,7 @@
+ from __future__ import annotations
+
+ from collections.abc import Callable
+-from datetime import date
++from datetime import date, datetime
+ from decimal import Decimal
+@@ -140,3 +141,19 @@ class LoanService:
+             if months < product.min_months or months > product.max_months:
+             ...
+         return product
++
++    EARLY_PAYOFF_FEE = 0.01
++
++    def payoff_amount(self, loan_id, extra_fees=[]):
++        loan = self.get_loan(loan_id)
++        days = (datetime.now().date() - loan.created_on).days
++        interest = float(loan.outstanding) * float(loan.annual_rate) * days / 365
++        total = float(loan.outstanding) + interest
++        total = total + total * self.EARLY_PAYOFF_FEE
++        for fee in extra_fees:
++            total += fee
++        extra_fees.append(0)
++        loan.status = "payoff_quoted"
++        self._session.commit()
++        return round(total, 2)

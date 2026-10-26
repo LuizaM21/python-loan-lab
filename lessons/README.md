@@ -1,0 +1,104 @@
+# Study plan: 5 days to interview-ready
+
+Target role: **Senior Developer (Python)**, backend: Python, Flask/Django, ORMs, unit tests and
+debugging, Git, autonomy with limited information. Nice to have: Linux, Docker, Kubernetes,
+MongoDB, C++.
+
+You have 5 days, about 4–5 hours each. Do the lessons in order. Each lesson has:
+
+- **Learn**: the ideas, in short form.
+- **In this repo**: where you can see the idea in the code.
+- **Do**: exercises. Build real features, test-first. Run them.
+- **Check yourself**: questions. Answer them out loud, without notes.
+- **Say it in the interview**: sentences you can reuse.
+
+Keep your own notes in the `notes/` folder. Interviewers like it when you show real work.
+
+## Before you start
+
+1. Follow the main [README](../README.md) until the API runs and all sample tests pass.
+2. Push the repo to your own GitHub account. Work on branches, merge with pull requests.
+   Then you can show the history in the interview.
+3. Do **not** open `instructor/`. It has the reference solutions, exam answers and the hidden bugs.
+
+## Day 1 — Python and tests
+
+| Time | Lesson |
+| --- | --- |
+| 75 min | [01 Python for a JVM developer](01-python-for-jvm-developers.md) |
+| 90 min | [02 Tests and TDD as a developer](02-tests-and-tdd.md) |
+| 45 min | Katas: `two_sum`, `brackets`, `top_k` (see [katas](#katas)) |
+
+## Day 2 — APIs and databases
+
+| Time | Lesson |
+| --- | --- |
+| 90 min | [03 REST APIs with Flask](03-rest-apis-with-flask.md) |
+| 90 min | [04 Databases: SQLAlchemy, transactions, migrations](04-databases-sqlalchemy.md) |
+| 30 min | Practice bug hunt 1 (end of lesson 04) |
+
+## Day 3 — Django and MongoDB
+
+| Time | Lesson |
+| --- | --- |
+| 90 min | [05 Django for a Flask developer](05-django.md) |
+| 60 min | [06 MongoDB and the event log](06-mongodb.md) |
+| 45 min | Katas: `binary_search`, `intervals`, `lru_cache` |
+
+## Day 4 — Performance and shipping
+
+| Time | Lesson |
+| --- | --- |
+| 90 min | [07 Performance and concurrency](07-performance-and-concurrency.md) |
+| 75 min | [08 Docker, Kubernetes and Linux](08-docker-kubernetes-linux.md) |
+| 30 min | Practice bug hunt 2 (end of lesson 08) |
+| 30 min | Katas: `rate_limiter`, `coin_change` |
+
+## Day 5 — Senior topics and exams
+
+| Time | Lesson |
+| --- | --- |
+| 60 min | [09 Git, CI/CD, code review and AI agents](09-git-ci-review-ai.md) |
+| 30 min | [10 Interview playbook](10-interview-playbook.md) |
+| 45 min | [Exam 1 — theory](../exams/exam-1-theory.md) |
+| 90 min | [Exam 2 — practical: fix and build](../exams/exam-2-practical.md) |
+| 45 min | [Exam 3 — mock interview](../exams/exam-3-mock-interview.md) |
+
+Day 5 is long. If needed, do Exam 3 on the evening before the interview.
+
+You are ready when you pass all three exams. See [exams/README.md](../exams/README.md).
+
+## Katas
+
+Interview-style algorithm exercises in `katas/`, with tests in `tests/katas/`. The tests are
+switched off by default so CI stays green. Run them on purpose:
+
+```bash
+pytest -m kata                              # all katas
+pytest -m kata tests/katas/test_two_sum.py  # one kata
+```
+
+Time-box each one to 20 minutes, talking out loud as if in a live-coding interview: the plan, the
+complexity, the edge cases, then the code. Commit each kata when it is green.
+
+## How the hidden bugs work
+
+Your mentor can turn on small bugs in the app. The sample tests stay green. Only a good new test
+finds a bug. As a developer you do two things: **prove** the bug with a failing test, then **fix**
+it. The test stays as a regression test.
+
+You can also practise alone:
+
+```bash
+instructor/bug.sh random 1   # turns on one random bug; it does not say which
+```
+
+Run your tests. If all stay green, your tests missed the bug. Add tests until one fails, then fix
+the code so it passes. Check:
+
+```bash
+instructor/bug.sh list       # shows which bug was on
+instructor/bug.sh reset      # turns every bug off (it notices when you already fixed it)
+```
+
+Restart the API after you turn a bug on or off. On Windows, run the script in Git Bash.

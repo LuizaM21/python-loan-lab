@@ -1,0 +1,32 @@
+diff --git a/loanlab/api/payloads.py b/loanlab/api/payloads.py
+index 9ca86d2..b1c9ed8 100644
+--- a/loanlab/api/payloads.py
++++ b/loanlab/api/payloads.py
+@@ -103,6 +103,8 @@ def instalment_json(instalment: Instalment) -> dict[str, Any]:
+ def schedule_json(schedule: Schedule) -> dict[str, Any]:
+     return {
+         "monthlyPayment": format_money(schedule.monthly_payment),
++        "totalPaid": format_money(schedule.total_paid),
++        "totalInterest": format_money(schedule.total_interest),
+         "instalments": [instalment_json(i) for i in schedule.instalments],
+     }
+ 
+diff --git a/loanlab/schedule.py b/loanlab/schedule.py
+index 747fe6f..457945c 100644
+--- a/loanlab/schedule.py
++++ b/loanlab/schedule.py
+@@ -30,6 +30,14 @@ class Schedule:
+     monthly_payment: Decimal
+     instalments: tuple[Instalment, ...]
+ 
++    @property
++    def total_paid(self) -> Decimal:
++        return sum((i.payment for i in self.instalments), Decimal("0.00"))
++
++    @property
++    def total_interest(self) -> Decimal:
++        return sum((i.interest for i in self.instalments), Decimal("0.00"))
++
+ 
+ def monthly_payment(amount: Decimal, annual_rate: Decimal, months: int) -> Decimal:
+     if months < 1:

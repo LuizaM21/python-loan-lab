@@ -1,0 +1,13 @@
+diff --git a/loanlab/services.py b/loanlab/services.py
+index d8e24f6..9365677 100644
+--- a/loanlab/services.py
++++ b/loanlab/services.py
+@@ -120,7 +120,7 @@ class LoanService:
+             raise NotFound("Loan not found.")
+         if loan.status == "closed":
+             raise Conflict(f"Loan {loan.reference} is closed.")
+-        if amount > loan.outstanding:
++        if amount >= loan.outstanding:
+             raise Conflict(f"Repayment exceeds the outstanding balance of {format_money(loan.outstanding)} RON.")
+ 
+         repayment = Repayment(amount=amount, paid_on=self._today(), idempotency_key=key)

@@ -1,0 +1,17 @@
+diff --git a/loanlab/api/routes.py b/loanlab/api/routes.py
+index 91794db..463b702 100644
+--- a/loanlab/api/routes.py
++++ b/loanlab/api/routes.py
+@@ -102,6 +102,12 @@ def loan_events(loan_id: int):
+     return jsonify([event_json(e) for e in svc.history(svc.get_loan(loan_id))])
+ 
+ 
++@api.get("/loans/<int:loan_id>/repayments")
++def list_repayments(loan_id: int):
++    loan = service().get_loan(loan_id)  # 404 for an unknown loan
++    return jsonify([repayment_json(r) for r in loan.repayments])
++
++
+ @api.post("/loans/<int:loan_id>/repayments")
+ @require_api_key
+ def repay(loan_id: int):

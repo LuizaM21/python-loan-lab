@@ -1,0 +1,13 @@
+diff --git a/loanlab/services.py b/loanlab/services.py
+index d8e24f6..2c93eee 100644
+--- a/loanlab/services.py
++++ b/loanlab/services.py
+@@ -147,7 +147,7 @@ class LoanService:
+             raise ValidationError(
+                 f"Amount must be between {product.min_amount} and {product.max_amount} RON for {product.name}."
+             )
+-        if months < product.min_months or months > product.max_months:
++        if months <= product.min_months or months > product.max_months:
+             raise ValidationError(
+                 f"Term must be between {product.min_months} and {product.max_months} months for {product.name}."
+             )

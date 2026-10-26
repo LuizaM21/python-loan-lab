@@ -1,0 +1,12 @@
+diff --git a/loanlab/services.py b/loanlab/services.py
+index d8e24f6..d8c7392 100644
+--- a/loanlab/services.py
++++ b/loanlab/services.py
+@@ -85,7 +85,6 @@ class LoanService:
+         count = select(func.count()).select_from(Loan)
+         if status:
+             query = query.where(Loan.status == status)
+-            count = count.where(Loan.status == status)
+         total = self._session.scalar(count) or 0
+         loans = self._session.scalars(query.order_by(Loan.id).limit(size).offset((page - 1) * size)).all()
+         return list(loans), total

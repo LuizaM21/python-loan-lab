@@ -1,0 +1,13 @@
+diff --git a/loanlab/api/routes.py b/loanlab/api/routes.py
+index 91794db..b650efd 100644
+--- a/loanlab/api/routes.py
++++ b/loanlab/api/routes.py
+@@ -109,7 +109,7 @@ def repay(loan_id: int):
+     repayment, created = service().repay(
+         loan_id, read_decimal(body, "amount", "Amount"), request.headers.get("Idempotency-Key")
+     )
+-    return repayment_json(repayment), 201 if created else 200
++    return repayment_json(repayment), 201
+ 
+ 
+ @api.get("/stats/portfolio")

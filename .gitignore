@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.sqlite3
+.env
+.idea/
+.vscode/
+.DS_Store
+instructor/verify.log
+instructor/.active-bugs

@@ -1,0 +1,13 @@
+diff --git a/loanlab/api/auth.py b/loanlab/api/auth.py
+index cf34d8a..77b5b79 100644
+--- a/loanlab/api/auth.py
++++ b/loanlab/api/auth.py
+@@ -16,7 +16,7 @@ def require_api_key(view):
+         expected = current_app.config["API_KEY"]
+         given = request.headers.get("X-Api-Key")
+         # compare_digest takes the same time whether the first or the last character differs
+-        if given is None or not hmac.compare_digest(given.encode(), expected.encode()):
++        if given is not None and not hmac.compare_digest(given.encode(), expected.encode()):
+             raise Unauthorized("A valid X-Api-Key header is required.")
+         return view(*args, **kwargs)
+ 

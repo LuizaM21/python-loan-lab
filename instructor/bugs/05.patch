@@ -1,0 +1,13 @@
+diff --git a/loanlab/services.py b/loanlab/services.py
+index d8e24f6..a8266fb 100644
+--- a/loanlab/services.py
++++ b/loanlab/services.py
+@@ -110,7 +110,7 @@ class LoanService:
+ 
+         existing = self._session.scalars(select(Repayment).where(Repayment.idempotency_key == key)).first()
+         if existing is not None:
+-            if existing.loan_id != loan_id or existing.amount != amount:
++            if existing.loan_id != loan_id:
+                 raise Conflict("Idempotency-Key was already used for a different request.")
+             return existing, False
+ 
