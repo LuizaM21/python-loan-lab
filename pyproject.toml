@@ -7,9 +7,10 @@ requires-python = ">=3.12"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
-addopts = "-ra -m 'not kata'"
+addopts = "-ra -m 'not kata and not exercise'"
 markers = [
     "kata: interview algorithm exercises. Run with: pytest -m kata",
+    "exercise: design exercises from lessons 11-19, red until you solve them. Run with: pytest -m exercise",
     "mongo: needs mongomock or a MongoDB server",
 ]
 filterwarnings = [
@@ -23,6 +24,13 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["loanlab", "exercises", "katas", "tests"]
+
+[tool.ruff.lint.per-file-ignores]
+# Technical debt: the legacy importer breaks these rules. Lesson 19 removes this entry.
+"loanlab/legacy/loan_import.py" = ["E711", "E722", "B006", "F841", "SIM115", "UP"]
 
 [tool.mypy]
 python_version = "3.12"

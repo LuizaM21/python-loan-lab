@@ -36,7 +36,7 @@ def read_decimal(body: dict[str, Any], field: str, label: str) -> Decimal:
         raise ValidationError(f"{label} must be a number.")
     if isinstance(value, int):
         return Decimal(value)
-    if isinstance(value, (Decimal, str)):
+    if isinstance(value, Decimal | str):
         try:
             number = Decimal(value)
         except InvalidOperation:
