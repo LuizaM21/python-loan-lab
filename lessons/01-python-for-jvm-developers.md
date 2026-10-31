@@ -40,20 +40,20 @@ def monthly_payment(amount: Decimal, annual_rate: Decimal, months: int) -> Decim
     return to_money(amount * r / (1 - (1 + r) ** -months))
 ```
 
-| Item | Meaning |
-| --- | --- |
-| `Decimal("0.1")` | Exact decimal. Build it from a **string** or an int. `Decimal(0.1)` copies the float error. |
-| `0.1 + 0.2` | `0.30000000000000004`. Never use `float` for money. |
-| `x: str \| None` | The value can be `None` (Scala `Option[String]`). Check with `if x is None`. |
-| `[f(x) for x in xs if p(x)]` | List comprehension: `xs.filter(p).map(f)`. |
-| `(f(x) for x in xs)` | Generator: lazy, like an `Iterator`. |
-| `with open(path) as f:` | Context manager: closes the file even on error (`Using` in Scala). |
-| `@functools.wraps` decorator | A function that wraps a function. `@require_api_key` in this repo. |
-| `typing.Protocol` | A structural interface: any class with the right methods fits (`EventLog`). |
-| `is` vs `==` | Identity vs equality. Use `is` only for `None`, `True`, `False`. |
-| `def f(xs=[])` | **Bug**: the default list is created once and shared by every call. Use `None`. |
-| `*args, **kwargs` | Any positional / keyword arguments. |
-| f-string | `f"LN-{loan_id:04d}"` -> `LN-0007`. `f"{amount:.2f}"` -> `10.50`. |
+| Item                         | Meaning                                                                                     |
+|------------------------------|---------------------------------------------------------------------------------------------|
+| `Decimal("0.1")`             | Exact decimal. Build it from a **string** or an int. `Decimal(0.1)` copies the float error. |
+| `0.1 + 0.2`                  | `0.30000000000000004`. Never use `float` for money.                                         |
+| `x: str \| None`             | The value can be `None` (Scala `Option[String]`). Check with `if x is None`.                |
+| `[f(x) for x in xs if p(x)]` | List comprehension: `xs.filter(p).map(f)`.                                                  |
+| `(f(x) for x in xs)`         | Generator: lazy, like an `Iterator`.                                                        |
+| `with open(path) as f:`      | Context manager: closes the file even on error (`Using` in Scala).                          |
+| `@functools.wraps` decorator | A function that wraps a function. `@require_api_key` in this repo.                          |
+| `typing.Protocol`            | A structural interface: any class with the right methods fits (`EventLog`).                 |
+| `is` vs `==`                 | Identity vs equality. Use `is` only for `None`, `True`, `False`.                            |
+| `def f(xs=[])`               | **Bug**: the default list is created once and shared by every call. Use `None`.             |
+| `*args, **kwargs`            | Any positional / keyword arguments.                                                         |
+| f-string                     | `f"LN-{loan_id:04d}"` -> `LN-0007`. `f"{amount:.2f}"` -> `10.50`.                           |
 
 Scala to Python, quickly: `xs.map(f)` -> `[f(x) for x in xs]`; `xs.groupBy(f)` -> a loop with
 `dict.setdefault(k, []).append(x)`; `xs.foldLeft(0)(_ + _)` -> `sum(xs)`; `copy(a = 1)` ->
@@ -70,14 +70,14 @@ Scala to Python, quickly: `xs.map(f)` -> `[f(x) for x in xs]`; `xs.groupBy(f)` -
 
 ## In this repo
 
-| File | Shows |
-| --- | --- |
-| `loanlab/money.py` | `Decimal`, `quantize`, `ROUND_HALF_UP` |
-| `loanlab/products.py` | frozen dataclass, a module-level dict as a lookup table |
-| `loanlab/schedule.py` | pure functions, a `tuple` of dataclasses, the loan maths |
-| `loanlab/events.py` | `Protocol`, a lock for thread safety, a class with `NotImplementedError` stubs |
-| `loanlab/api/auth.py` | a decorator with `functools.wraps`, `hmac.compare_digest` |
-| `katas/` | stubs for interview exercises |
+| File                  | Shows                                                                          |
+|-----------------------|--------------------------------------------------------------------------------|
+| `loanlab/money.py`    | `Decimal`, `quantize`, `ROUND_HALF_UP`                                         |
+| `loanlab/products.py` | frozen dataclass, a module-level dict as a lookup table                        |
+| `loanlab/schedule.py` | pure functions, a `tuple` of dataclasses, the loan maths                       |
+| `loanlab/events.py`   | `Protocol`, a lock for thread safety, a class with `NotImplementedError` stubs |
+| `loanlab/api/auth.py` | a decorator with `functools.wraps`, `hmac.compare_digest`                      |
+| `katas/`              | stubs for interview exercises                                                  |
 
 ## Do
 
