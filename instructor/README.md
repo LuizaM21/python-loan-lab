@@ -18,6 +18,13 @@ For the mentor only. The student must not open this folder.
 | `solutions/lesson-07-fast-stats/` | Fast `stats.py` and its characterization + query-count tests |
 | `solutions/katas/` | Kata solutions |
 | `answer-keys/` | Keys for the three exams and the lesson 09 review |
+| `solutions/exercises/` | Design exercises, lessons 11–17 (copy over the stubs) |
+| `solutions/lesson-12-14-design/` | Reference tests: eligibility, notifications; `retry` decorator (lesson 13) |
+| `solutions/lesson-15-mocks/` | Mock-based tests for `credit.py` |
+| `solutions/lesson-17-import-export/` | Tests for extract/export; pandas version of the cleaning |
+| `solutions/lesson-18-bug-fixing/` | Regression tests for IMP-101..106 + the fixed legacy importer |
+| `solutions/lesson-19-refactoring/` | The import pipeline, the strangler adapter, pipeline tests |
+| `answer-keys/lessons-11-19-key.md`, `exam-4-design-and-craft-key.md` | Keys for lessons 11–19 tasks and Exam 4 |
 
 Apply a feature solution to look at it: `git apply instructor/solutions/lesson-03-repayments-endpoint/feature.patch`
 (undo with `git apply -R ...`).

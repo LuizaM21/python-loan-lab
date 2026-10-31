@@ -14,7 +14,9 @@ The products, rates and limits are **fictional**. This is not financial advice.
   reset on every start: two sample loans come back. PostgreSQL and MongoDB via Docker Compose.
 - Django version of the domain, for comparison: `django_lab/`.
 
-**Start here after setup: [lessons/README.md](lessons/README.md)**, the 5-day study plan.
+**Start here after setup: [lessons/README.md](lessons/README.md)**, the 5-day study plan, plus
+3 more days on design and craft (lessons 11–19: Python internals, SOLID, design patterns, mocks and
+production, the ORM, data cleaning, bug fixing and refactoring).
 
 ## Install the tools
 
@@ -69,8 +71,9 @@ configuration with target `loanlab.api` and additional options `--port 5080`.
 
 | Level | Command | Folder | Sample tests |
 | --- | --- | --- | --- |
-| Unit + API | `pytest` | repo root | 3 samples. Add yours. |
+| Unit + API | `pytest` | repo root | 5 samples. Add yours. |
 | Katas (interview algorithms) | `pytest -m kata` | repo root | 10 katas, red until you solve them |
+| Design exercises (lessons 11–19) | `pytest -m exercise` | repo root | 6 exercises, red until you solve them |
 | Django lab | `python manage.py test lending` | `django_lab` | 1 |
 | Lint, format, types | `ruff check .`, `ruff format --check .`, `mypy` | repo root | |
 | Performance smoke | `k6 run perf/smoke.js` (API must be running) | repo root | 1 |
@@ -88,13 +91,20 @@ GitHub Actions runs lint, tests, the k6 smoke and a Docker build on every push:
 | `loanlab/api/` | Flask app factory, routes, request parsing, API key check, error handling |
 | `loanlab/events.py` | Event log: in memory, and MongoDB (you finish it in lesson 06) |
 | `loanlab/stats.py` | Portfolio statistics: correct but slow (you fix it in lesson 07) |
+| `loanlab/credit.py` | Credit bureau client: adapter, timeouts, retries (lessons 13–15) |
+| `loanlab/eligibility.py` | Eligibility rules composed into a policy (lessons 12, 14) |
+| `loanlab/notifications.py` | Event bus and observers (lesson 14) |
+| `loanlab/importer/` | CSV extract, cleaning (you write it in lesson 17), report export |
+| `loanlab/legacy/loan_import.py` | The old importer: six production bugs (lesson 18), then refactored (lesson 19) |
+| `exercises/`, `tests/exercises/` | Design exercises for lessons 11–19 |
+| `data/` | Two messy branch CSV files (synthetic) |
 | `tests/` | Sample unit and API tests and shared fixtures. Add yours here. |
 | `katas/`, `tests/katas/` | Interview algorithm exercises |
 | `django_lab/` | The same domain in Django (lesson 05) |
 | `perf/` | k6 scripts |
 | `Dockerfile`, `docker-compose.yml`, `k8s/` | Containers: API + PostgreSQL + MongoDB; Kubernetes manifests |
-| `lessons/` | 10 lessons and the study plan |
-| `exams/` | 3 exams |
+| `lessons/` | 19 lessons and the study plan |
+| `exams/` | 4 exams |
 | `CLAUDE.md`, `.claude/` | Context, skills and a reviewer agent for AI coding agents |
 | `ci/` | GitLab CI version of the pipeline, for study |
 | `notes/` | Your notes |

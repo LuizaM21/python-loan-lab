@@ -68,7 +68,7 @@ class Money:
         return Money(self.amount - other.amount, self.currency)
 
     def __mul__(self, factor: object) -> Money:
-        if isinstance(factor, bool) or not isinstance(factor, (int, Decimal)):
+        if isinstance(factor, bool) or not isinstance(factor, int | Decimal):
             return NotImplemented
         return Money(self.amount * factor, self.currency)
 

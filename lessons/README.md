@@ -68,6 +68,59 @@ Day 5 is long. If needed, do Exam 3 on the evening before the interview.
 
 You are ready when you pass all three exams. See [exams/README.md](../exams/README.md).
 
+## Days 6–8 — Design and craft
+
+A second module, for interviews that go deeper into design: Python internals, composition and
+SOLID, design patterns, mocks and production, the ORM, data cleaning, bug fixing and refactoring.
+Every lesson builds on the loan domain and adds real code: a credit bureau client, eligibility rules,
+an event bus, a CSV importer and a legacy importer with six production bugs.
+
+### Day 6 — Python and design
+
+| Time | Lesson |
+| --- | --- |
+| 90 min | [11 Python fundamentals, the deep version](11-python-fundamentals.md) |
+| 90 min | [12 Composition, structure in code, and SOLID](12-composition-and-solid.md) |
+| 75 min | [13 Design patterns: creational and structural](13-design-patterns.md) |
+
+### Day 7 — Behaviour, production and data access
+
+| Time | Lesson |
+| --- | --- |
+| 90 min | [14 Behavioral patterns](14-behavioral-patterns.md) |
+| 120 min | [15 Mocks, and handling things in production](15-mocks-and-production.md) |
+| 90 min | [16 The ORM in depth](16-orm-in-depth.md) |
+
+### Day 8 — Data, bugs and refactoring
+
+| Time | Lesson |
+| --- | --- |
+| 120 min | [17 Data cleaning, loading, and extracting data back out](17-data-cleaning-and-extraction.md) |
+| 120 min | [18 Bug fixing: from a ticket to a regression test](18-bug-fixing.md) |
+| 150 min | [19 A case for refactoring: why, then how](19-refactoring-case.md) |
+| 50 min | [Exam 4 — design and craft](../exams/exam-4-design-and-craft.md) |
+
+Do 17, 18, 19 in that order: the cleaner from 17 is reused in 18's fixes, and 18's tests are the
+safety net for 19's refactoring. Day 8 is long; split it over two days if you need to.
+
+### Exercises
+
+Like the katas, the design exercises have tests that are switched off by default:
+
+```bash
+pytest -m exercise                                     # all of them
+pytest -m exercise tests/exercises/test_clean.py       # one
+```
+
+| Exercise | Lesson | Practises |
+| --- | --- | --- |
+| `exercises/money_value.py` | 11 | the data model: dunder methods, immutability, hashing |
+| `exercises/eligibility_rules.py` | 12 | open/closed, composition, a Protocol |
+| `exercises/schedule_strategies.py` | 14 | Strategy + registry |
+| `exercises/circuit_breaker.py` | 14, 15 | State; resilience; mocks with a fake clock |
+| `exercises/loan_repository.py` | 16 | Repository; eager loading; query counts; GROUP BY |
+| `loanlab/importer/clean.py` | 17 | data cleaning, test-first |
+
 ## Katas
 
 Interview-style algorithm exercises in `katas/`, with tests in `tests/katas/`. The tests are

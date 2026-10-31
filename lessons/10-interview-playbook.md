@@ -46,6 +46,15 @@ Prepare 5. **S**ituation, **T**ask, **A**ction, **R**esult (with a number).
 | Dockerfile best practices; probes; requests and limits | 08 |
 | Git workflow, CI/CD, code review, AI agents | 09 |
 | Live coding | katas |
+| Dunder methods, closures, generators, `Protocol` vs `ABC` | 11 |
+| Composition vs inheritance; SOLID with examples; how do you structure a service? | 12 |
+| Which design patterns have you used? Adapter vs Decorator vs Facade | 13 |
+| Strategy vs State; Observer and the outbox; Chain of Responsibility | 14 |
+| Mocking: what and where; retries, timeouts, circuit breakers; an incident | 15 |
+| What does the ORM do? N+1, eager loading, locking, ORM vs SQL | 16 |
+| What is data cleaning? ETL; exporting large data | 17 |
+| How do you fix a bug? Walk me through one. | 18 |
+| When and how do you refactor? Convince your PO. | 19 |
 
 ### Small system design (have one ready)
 
