@@ -1,0 +1,11 @@
+customer_name,product_code,amount,months,opened_on
+Ana Pop,PERS,10000,12,2026-03-02
+Ion Rusu,auto,"25,000.00",48,2026-03-02
+ Elena   Matei ,PERS,"1,250.50",6,03/03/2026
+Mihai Ilie,HOME,250000,240,2026-03-04
+ana pop,PERS,5000,24,2026-03-05
+Radu Lungu,PERS,900000,12,2026-03-05
+Irina Moraru,CARD,3000,12,2026-03-06
+Vlad Dumitru,PERS,12000,36,2026-02-30
+Ioana Stan,AUTO,18000.5,60,2026-03-09
+

@@ -37,7 +37,3 @@ def make_engine(url: str) -> Engine:
 
 def make_sessionmaker(engine: Engine) -> sessionmaker:
     return sessionmaker(bind=engine, expire_on_commit=False)
-
-
-
-

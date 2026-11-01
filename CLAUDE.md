@@ -10,6 +10,10 @@ version (`django_lab/`), tests in `tests/`. Default database: SQLite, reset on e
 - Expected values come from the Domain rules below, worked out by hand. Never copy them from the
   current output.
 - Keep views thin: rules live in `loanlab/services.py`. The service never commits; the request does.
+- Remote services sit behind a Protocol (`CreditBureau`, `EventLog`); tests use fakes, mocks only at
+  the transport. Business rules are never duplicated outside the service (the legacy importer breaks
+  this rule until lesson 18 fixes it).
+- `loanlab/legacy/` is deliberately bad (lessons 18–19). Don't copy its style.
 - Money is `Decimal`, never `float`. JSON carries money as strings with 2 decimals.
 - Run `ruff check .`, `ruff format .`, `mypy` and `pytest` before you say a task is done.
 - Use synthetic data only.
@@ -21,6 +25,7 @@ version (`django_lab/`), tests in `tests/`. Default database: SQLite, reset on e
 | Tests | `pytest` | repo root |
 | One test | `pytest -k <name> -x` | repo root |
 | Katas | `pytest -m kata` | repo root |
+| Design exercises | `pytest -m exercise` | repo root |
 | Lint / format / types | `ruff check .` / `ruff format .` / `mypy` | repo root |
 | Start API (port 5080) | `flask --app loanlab.api run --port 5080` | repo root |
 | Django tests | `python manage.py test lending` | `django_lab` |

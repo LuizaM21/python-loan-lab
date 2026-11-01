@@ -7,6 +7,7 @@ Three exams check that you are ready. Take them on day 5, after all lessons.
 | [1 — Theory](exam-1-theory.md) | 20 multiple choice + 10 short answers, no notes | 45 min | 32 of 40 (80%) |
 | [2 — Practical: fix and build](exam-2-practical.md) | Your mentor turns on 3 hidden bugs and gives you 1 small ticket | 90 min | 30 of 40 |
 | [3 — Mock interview](exam-3-mock-interview.md) | Your mentor asks 12 questions out loud, including live coding | 45 min | average 3 of 4, no score of 1 on core questions |
+| [4 — Design and craft](exam-4-design-and-craft.md) | After lessons 11–19: 20 multiple choice + 10 short answers, plus 10 oral questions | 50 min + oral | 32 of 40; oral: aim for 3 of 4 each |
 
 ## Ready for the interview
 

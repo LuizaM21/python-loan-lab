@@ -81,7 +81,7 @@ def create_application(request: HttpRequest) -> JsonResponse:
         return bad_request("Unknown loan product.")
 
     raw_amount, months = body.get("amount"), body.get("months")
-    if isinstance(raw_amount, bool) or not isinstance(raw_amount, (int, Decimal, str)):
+    if isinstance(raw_amount, bool) or not isinstance(raw_amount, int | Decimal | str):
         return bad_request("Amount must be a number.")
     try:
         amount = Decimal(raw_amount)
